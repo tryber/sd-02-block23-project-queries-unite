@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS travel_packages_locations (
     CONSTRAINT fk_travel_packages_locations_travel_packages FOREIGN KEY (travel_package_id)
         REFERENCES travel_packages (id)
         ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT fk_travel_packages_locations_locations FOREIGN KEY (location_id)
+    CONSTRAINT fk_travel_packages_locations_locations FOREIGN KEY (location_id)
         REFERENCES locations (id)
         ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB;
@@ -41,11 +41,11 @@ CREATE TABLE IF NOT EXISTS purchases (
     travel_package_id INT NOT NULL,
     PRIMARY KEY(user_id, travel_package_id),
     CONSTRAINT fk_purchases_users FOREIGN KEY (user_id)
-		REFERENCES users (id)
+        REFERENCES users (id)
         ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_purchases_travel_packages FOREIGN KEY (travel_package_id)
         REFERENCES travel_packages (id)
-	    ON DELETE CASCADE ON UPDATE CASCADE
+        ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB;
 
 INSERT INTO users(full_name, current_age, current_job)
@@ -96,7 +96,7 @@ DROP FUNCTION IF EXISTS BuyPackage $$
 CREATE FUNCTION BuyPackage(user_id_param INT, travel_package_id_param INT)
 RETURNS VARCHAR(100) DETERMINISTIC
 BEGIN
-	DECLARE user_name VARCHAR(100);
+    DECLARE user_name VARCHAR(100);
     DECLARE package_name VARCHAR(100);
     SELECT u.full_name FROM users u WHERE u.id = user_id_param INTO user_name;
     SELECT t.name FROM travel_packages t WHERE t.id = travel_package_id_param INTO package_name;
