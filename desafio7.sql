@@ -1,3 +1,4 @@
+CREATE VIEW top_3_locations AS
 SELECT
   j.loc_id id,
   j.loc_name city,
@@ -16,3 +17,4 @@ INNER JOIN
   GROUP BY j.loc_name, j.loc_country, j.loc_id
   ORDER BY travel_amount DESC, id ASC 
   LIMIT 3;
+  
