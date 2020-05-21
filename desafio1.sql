@@ -86,8 +86,6 @@ VALUES
     (5, 3),
     (5, 5),
     (5, 4);
-    
-
 
 USE queries_unite;
 DELIMITER $$
@@ -102,12 +100,23 @@ BEGIN
     SELECT t.name FROM travel_packages t WHERE t.id = travel_package_id_param INTO package_name;
     INSERT INTO purchases(user_id, travel_package_id) 
     VALUES(user_id_param, travel_package_id_param);
-    UPDATE travel_packages 
-    SET purchase_count = (SELECT COUNT(travel_package_id) 
-                          FROM purchases 
-                          WHERE travel_package_id = id)
-    WHERE travel_package_id_param = id;
     RETURN CONCAT(user_name, ' comprou o pacote ', package_name);
+END $$
+
+DELIMITER ;
+
+USE queries_unite;
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS increment_travel_package_purchases $$
+
+CREATE TRIGGER increment_travel_package_purchases
+    AFTER INSERT ON purchases
+    FOR EACH ROW
+BEGIN
+	UPDATE travel_packages
+    SET purchase_count = purchase_count + 1
+    WHERE id = NEW.travel_package_id;
 END $$
 
 DELIMITER ;
