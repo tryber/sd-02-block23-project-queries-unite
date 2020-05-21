@@ -12,9 +12,7 @@ INNER JOIN
     l.loc_country,
     l.loc_id
   FROM travel_packages_locations tpl
-  INNER JOIN locations l ON l.loc_id = tpl.loc_id)
-    j ON j.pack_id = p.travel_pack_id
-  GROUP BY j.loc_name, j.loc_country, j.loc_id
-  ORDER BY travel_amount DESC, id ASC 
-  LIMIT 3;
-  
+  INNER JOIN locations l ON l.loc_id = tpl.loc_id) j ON j.pack_id = p.travel_pack_id
+GROUP BY j.loc_name, j.loc_country, j.loc_id
+ORDER BY travel_amount DESC, id ASC 
+LIMIT 3;
