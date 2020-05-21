@@ -9,13 +9,6 @@ CREATE TABLE users(
   current_job VARCHAR(300) NOT NULL
 );
 
-CREATE TABLE purchases(
-  travel_pack_id INT NOT NULL,
-  user_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (travel_pack_id) REFERENCES travel_packages(pack_id)
-);
-
 CREATE TABLE travel_packages(
   pack_id INT PRIMARY KEY AUTO_INCREMENT,
   pack_name VARCHAR(50) NOT NULL,
@@ -23,6 +16,13 @@ CREATE TABLE travel_packages(
   price DOUBLE NOT NULL,
   departure_date DATETIME, 
   arrival_date DATETIME
+);
+
+CREATE TABLE purchases(
+  travel_pack_id INT NOT NULL,
+  user_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (travel_pack_id) REFERENCES travel_packages(pack_id)
 );
 
 CREATE TABLE locations(
