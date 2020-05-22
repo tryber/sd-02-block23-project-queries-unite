@@ -33,6 +33,7 @@ CREATE TABLE purchases(
 );
 
 CREATE TABLE travel_packages_locations(
+  id INT PRIMARY KEY AUTO_INCREMENT,
   travel_packages_id INT NOT NULL,
   location_id INT NOT NULL,
   FOREIGN KEY (travel_packages_id) REFERENCES travel_packages(id),
@@ -62,6 +63,20 @@ VALUES
 ('Cultura Francesa', 3900.99, 0, '2022-07-12', '2022-07-20'),
 ('Vem Pro Verão', 7725.99, 0, '2022-02-19', '2022-03-26'),
 ('Promoção 3 destinos', 13500.99, 0, '2022-09-13', '2022-10-18');
+
+INSERT INTO travel_packages_locations(travel_packages_id, location_id)
+VALUES
+(1,1),
+(1,2),
+(1,3),
+(2,4),
+(2,5),
+(3,4),
+(4,1),
+(4,2),
+(5,3),
+(5,4),
+(5,5);
 
 CREATE TRIGGER increment_travel_package_purchases
   AFTER INSERT ON purchases
