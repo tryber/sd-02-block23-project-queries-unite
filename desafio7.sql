@@ -6,4 +6,3 @@ inner join purchases as pu on pu.travel_id = tpl.travel_id
 group by loc.id
 order by travel_amount desc
 limit 3;
- 
