@@ -2,41 +2,41 @@ create database if not exists queries_unite;
 use queries_unite;
 
 create table users (
-	id int primary key auto_increment,
-    full_name varchar(50),
-    current_age int not null,
-    current_job varchar(50)
+id int primary key auto_increment,
+full_name varchar(50),
+current_age int not null,
+current_job varchar(50)
 ) engine=InnoDB;
 
 create table travel_packages (
-	id int primary key auto_increment,
-	cost double not null,
-	package varchar(50),
-	start_date date not null,
-    end_date date not null,
-    purchase_count int default 0
+id int primary key auto_increment,
+cost double not null,
+package varchar(50),
+start_date date not null,
+end_date date not null,
+purchase_count int default 0
 );
 
 create table locations (
-	id int primary key auto_increment,
-    country varchar(50),
-    city varchar(50)
+id int primary key auto_increment,
+country varchar(50),
+city varchar(50)
 );
 
 create table travel_packages_locations (
-	id int primary key auto_increment,
-    travel_packages_id int not null,
-    locations_id int not null,
-    foreign key (travel_packages_id) references travel_packages(id),
-    foreign key (locations_id) references locations(id)
+id int primary key auto_increment,
+travel_packages_id int not null,
+locations_id int not null,
+foreign key (travel_packages_id) references travel_packages(id),
+foreign key (locations_id) references locations(id)
 );
 
 create table purchases (
-	id int primary key auto_increment,
-    travel_packages_id int not null,
-    users_id int not null,
-    foreign key (users_id) references users(id),
-	foreign key (travel_packages_id) references travel_packages(id)
+id int primary key auto_increment,
+travel_packages_id int not null,
+users_id int not null,
+foreign key (users_id) references users(id),
+foreign key (travel_packages_id) references travel_packages(id)
 );
 
 insert into users (full_name, current_age, current_job) value
