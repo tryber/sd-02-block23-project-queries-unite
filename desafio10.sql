@@ -1,4 +1,4 @@
-# k3 Easter Egg <3
+# k3 Easter Egg pq Cremosinho é valioso <3
 USE queries_unite;
 
 DELIMITER cremosinho
