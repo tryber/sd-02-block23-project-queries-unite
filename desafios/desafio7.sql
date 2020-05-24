@@ -1,3 +1,5 @@
+USE queries_unite;
+
 CREATE VIEW top_3_locations AS
 SELECT
 tloc.location_id as id,
