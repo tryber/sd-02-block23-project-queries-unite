@@ -18,4 +18,4 @@ END cremosinho
 
 DELIMITER ;
 
-select average_amount_spent_given_age_range(30,50);
+SELECT average_amount_spent_given_age_range(30,50);
