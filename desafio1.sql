@@ -80,5 +80,3 @@ INSERT INTO purchases (user_id, package_id, departure_date, arrival_date, price)
            (5, 3, '2022-07-12', '2022-07-20', 3900.99),
            (5, 1, '2022-09-13', '2022-10-18', 13500.99)
 	
-    
-
