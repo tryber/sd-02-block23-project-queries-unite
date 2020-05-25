@@ -40,8 +40,7 @@ CREATE TABLE purchases(
     departure_date DATE NOT NULL,
 	arrival_date DATE NOT NULL,
     price DECIMAL(7,2) NOT NULL,
-	FOREIGN KEY (user_id) REFERENCES users(id),
-	FOREIGN KEY (travel_package_id) REFERENCES travel_packages(travel_package_id)
+	FOREIGN KEY (user_id) REFERENCES users(id)
 )engine=InnoDB;
 
 
@@ -75,7 +74,7 @@ INSERT INTO purchases (user_id, travel_package_id, departure_date, arrival_date,
 	VALUES (1, 1, '2022-09-25', '2022-10-12', 12500.99),
 		   (2, 2, '2022-10-16', '2022-10-26', 9650.99),
            (3, 3, '2022-07-12', '2022-07-20', 3900.00),
-           (4, 2, '2022-02-19', '2022-03-26', 7725.99),
+           (4, 4, '2022-02-19', '2022-03-26', 7725.99),
            (5, 3, '2022-07-12', '2022-07-20', 3900.99),
-           (5, 1, '2022-09-13', '2022-10-18', 13500.99)
+           (5, 5, '2022-09-13', '2022-10-18', 13500.99);
            
