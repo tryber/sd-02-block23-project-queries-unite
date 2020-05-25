@@ -1,3 +1,4 @@
+use queries_unite;
 create view amount_spent_by_user as
 select us.id as user_id, us.full_name as user_name, sum(tp.total_price) as amount
 from queries_unite.users as us

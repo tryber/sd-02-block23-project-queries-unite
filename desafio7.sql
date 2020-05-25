@@ -1,3 +1,4 @@
+use queries_unite;
 create view top_3_location as
 select loc.id, loc.city, loc.country, count(tpl.travel_id) as travel_amount
 from locations as loc
