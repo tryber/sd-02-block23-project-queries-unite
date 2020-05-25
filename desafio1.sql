@@ -22,7 +22,7 @@ CREATE TABLE locations(
 )engine=InnoDB;
 
 CREATE TABLE travel_packages_locations(
-	travel_packages_locations INT PRIMARY KEY auto_increment,
+	travel_packages_locations_id INT PRIMARY KEY auto_increment,
 	travel_package_id INT NOT NULL,
     location_id_1 INT NOT NULL,
     location_id_2 INT,
@@ -35,11 +35,12 @@ CREATE TABLE travel_packages_locations(
 
 CREATE TABLE purchases(
 	purchase_id INT PRIMARY KEY auto_increment,
-    user_id INT NOT NULL,
-    travel_package_id INT NOT NULL,
+    user_id INT,
+    travel_packages_locations_id INT,
     departure_date DATE NOT NULL,
 	arrival_date DATE NOT NULL,
     price DECIMAL(7,2) NOT NULL,
+    FOREIGN KEY (travel_packages_locations_id) REFERENCES travel_packages_locations(travel_packages_locations_id),
 	FOREIGN KEY (user_id) REFERENCES users(id)
 )engine=InnoDB;
 
@@ -70,7 +71,7 @@ INSERT INTO travel_packages_locations (travel_package_id, location_id_1, locatio
            (2, 1, 2, NULL),
            (1, 3, 5, 4);
            
-INSERT INTO purchases (user_id, travel_package_id, departure_date, arrival_date, price)
+INSERT INTO purchases (user_id, travel_packages_locations_id, departure_date, arrival_date, price)
 	VALUES (1, 1, '2022-09-25', '2022-10-12', 12500.99),
 		   (2, 2, '2022-10-16', '2022-10-26', 9650.99),
            (3, 3, '2022-07-12', '2022-07-20', 3900.00),
