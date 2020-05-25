@@ -2,14 +2,14 @@ CREATE DATABASE IF NOT EXISTS queries_unite;
 
 USE queries_unite;
 
-CREATE TABLE users(
+CREATE TABLE IF NOT EXISTS users(
   id INT PRIMARY KEY AUTO_INCREMENT,
   full_name VARCHAR(200) NOT NULL,
   current_age INT NOT NULL,
   current_job VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE travel_packages(
+CREATE TABLE IF NOT EXISTS travel_packages(
   id INT PRIMARY KEY AUTO_INCREMENT,
   package_name VARCHAR(100) NOT NULL,
   departure_date DATE NOT NULL,
@@ -18,13 +18,13 @@ CREATE TABLE travel_packages(
   purchase_count INT DEFAULT 0
 );
 
-CREATE TABLE locations(
+CREATE TABLE IF NOT EXISTS locations(
   id INT PRIMARY KEY AUTO_INCREMENT,
   city VARCHAR(100) NOT NULL,
   country VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE travel_packages_locations(
+CREATE TABLE IF NOT EXISTS travel_packages_locations(
   travel_package_id INT NOT NULL,
   location_id INT NOT NULL,
   PRIMARY KEY (travel_package_id, location_id),
@@ -32,7 +32,7 @@ CREATE TABLE travel_packages_locations(
   FOREIGN KEY (location_id) REFERENCES locations(id)
 );
 
-CREATE TABLE purchases(
+CREATE TABLE IF NOT EXISTS purchases(
   user_id INT NOT NULL,
   travel_package_id INT NOT NULL,
   PRIMARY KEY (user_id, travel_package_id),
@@ -42,9 +42,9 @@ CREATE TABLE purchases(
 
 DELIMITER $$
 
-DROP TRIGGER IF EXISTS trigger_purchases_insert $$
+DROP TRIGGER IF EXISTS increment_travel_package_purchases $$
 
-CREATE TRIGGER trigger_purchases_insert
+CREATE TRIGGER increment_travel_package_purchases
   AFTER INSERT ON purchases
   FOR EACH ROW
 BEGIN
