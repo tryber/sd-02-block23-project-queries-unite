@@ -11,8 +11,7 @@ CREATE TABLE users(
 
 CREATE TABLE travel_packages(
 	travel_package_id INT PRIMARY KEY auto_increment,
-    travel_package_name VARCHAR(50) UNIQUE NOT NULL,
-    purchase_count TINYINT SIGNED NOT NULL DEFAULT 0
+    travel_package_name VARCHAR(50) UNIQUE NOT NULL
 )engine=InnoDB;
 
 CREATE TABLE locations(
@@ -27,6 +26,7 @@ CREATE TABLE travel_packages_locations(
     location_id_1 INT NOT NULL,
     location_id_2 INT,
     location_id_3 INT,
+	purchase_count TINYINT SIGNED NOT NULL DEFAULT 0,
 	FOREIGN KEY (travel_package_id) REFERENCES travel_packages(travel_package_id),
     FOREIGN KEY (location_id_1) REFERENCES locations(location_id),
     FOREIGN KEY (location_id_2) REFERENCES locations(location_id),
@@ -52,10 +52,10 @@ INSERT INTO users (full_name, current_age, current_job)
               ('Carol Domingues', 37, 'Contadora'),
               ('Sabrina Ferreira', 45, 'Engenheira de Alimentos');
 
-INSERT INTO travel_packages (travel_package_name, purchase_count)
-       VALUES ('Promoção 3 destinos', 2),
-              ('Vem Pro Verão', 2),
-              ('Cultura Francesa', 2);
+INSERT INTO travel_packages (travel_package_name)
+       VALUES ('Promoção 3 destinos'),
+              ('Vem Pro Verão'),
+              ('Cultura Francesa');
               
 INSERT INTO locations (location_city, location_country)
        VALUES ('Cape Town', 'África do Sul'),
