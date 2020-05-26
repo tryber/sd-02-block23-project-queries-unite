@@ -9,6 +9,3 @@ CREATE VIEW travel_package_info AS
     INNER JOIN purchases AS purch ON tpl.travel_packages_locations_id = purch.travel_packages_locations_id
     INNER JOIN users AS users ON users.id = purch.user_id
     ORDER BY cost DESC;
-    
-    SELECT * FROM travel_package_info;
-    

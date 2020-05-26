@@ -6,4 +6,3 @@ CREATE VIEW amount_spent_by_user AS
     GROUP BY user_id
     ORDER BY amount;
     
-    SELECT * FROM amount_spent_by_user;
