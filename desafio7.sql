@@ -1,3 +1,4 @@
+DROP VIEW IF EXISTS top_3_locations;
 CREATE VIEW top_3_locations AS
     SELECT loc.location_id as id, 
 	   loc.location_city AS city,
@@ -10,4 +11,5 @@ CREATE VIEW top_3_locations AS
 		OR loc.location_id = tpl.location_id_3)
 	GROUP BY id
 	ORDER BY travel_amount DESC, id ASC;
-    
+
+SELECT * FROM top_3_locations;

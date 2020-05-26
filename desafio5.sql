@@ -1,3 +1,4 @@
+DROP VIEW IF EXISTS travel_package_info;
 CREATE VIEW travel_package_info AS
 	SELECT tpl.travel_packages_locations_id AS travel_package_id,
 		tpack.travel_package_name,
@@ -9,3 +10,5 @@ CREATE VIEW travel_package_info AS
     INNER JOIN purchases AS purch ON tpl.travel_packages_locations_id = purch.travel_packages_locations_id
     INNER JOIN users AS users ON users.id = purch.user_id
     ORDER BY cost DESC;
+
+SELECT * FROM travel_package_info;
