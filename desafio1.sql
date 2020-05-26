@@ -37,8 +37,8 @@ CREATE TABLE purchases(
 	purchase_id INT PRIMARY KEY auto_increment,
     user_id INT,
     travel_packages_locations_id INT,
-    departure_date DATE NOT NULL,
-	arrival_date DATE NOT NULL,
+    departure_date DATETIME NOT NULL,
+	arrival_date DATETIME NOT NULL,
     price DECIMAL(7,2) NOT NULL,
     FOREIGN KEY (travel_packages_locations_id) REFERENCES travel_packages_locations(travel_packages_locations_id),
 	FOREIGN KEY (user_id) REFERENCES users(id)
