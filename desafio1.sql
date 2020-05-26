@@ -78,4 +78,4 @@ INSERT INTO purchases (user_id, travel_packages_locations_id, departure_date, ar
            (4, 4, '2022-02-19', '2022-03-26', 7725.99),
            (5, 3, '2022-07-12', '2022-07-20', 3900.99),
            (5, 5, '2022-09-13', '2022-10-18', 13500.99);
-           
+        
