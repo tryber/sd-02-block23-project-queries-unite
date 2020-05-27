@@ -1,6 +1,6 @@
 USE queries_unite;
 
-CREATE VIEW top_3_locations AS
+CREATE VIEW revenue_report AS
 SELECT 
   MIN(travel_cost * purchase_count) AS lowest_revenue,
   MAX(travel_cost * purchase_count) AS biggest_revenue,
