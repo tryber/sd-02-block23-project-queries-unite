@@ -11,7 +11,8 @@ FROM
   travel_packages AS tp
   INNER JOIN purchases AS pur ON pur.travel_packages_id = tp.id
   INNER JOIN users AS u ON u.id = pur.users_id
-  INNER JOIN package_name AS pn ON pn.id = tp.package_name_id;
+  INNER JOIN package_name AS pn ON pn.id = tp.package_name_id
+  ORDER BY cost;
 
 
 SELECT  *
