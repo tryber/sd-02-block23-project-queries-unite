@@ -52,17 +52,6 @@ CREATE TABLE purchases(
   FOREIGN KEY (users_id) REFERENCES users(id)
 );
 
-DELIMITER $$
-CREATE TRIGGER increment_travel_package_purchases
-BEFORE INSERT ON purchases
-FOR EACH ROW
-BEGIN
-UPDATE travel_packages as tp
-SET tp.purchase_count = tp.purchase_count + 1
-WHERE tp.id =  NEW.travel_packages_id;
-END; $$
-DELIMITER ;
-
 INSERT INTO
   country (country)
 VALUES
@@ -134,3 +123,14 @@ VALUES
   (4, 4),
   (5, 3),
   (5, 5);
+
+DELIMITER $$
+CREATE TRIGGER increment_travel_package_purchases
+AFTER INSERT ON purchases
+FOR EACH ROW
+BEGIN
+UPDATE travel_packages as tp
+SET tp.purchase_count = tp.purchase_count + 1
+WHERE tp.id =  NEW.travel_packages_id;
+END; $$
+DELIMITER ;
