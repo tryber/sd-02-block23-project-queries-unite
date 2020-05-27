@@ -21,6 +21,7 @@ CREATE TABLE travel_packages(
 CREATE TABLE purchases(
   travel_pack_id INT NOT NULL,
   user_id INT NOT NULL,
+  PRIMARY KEY(travel_pack_id, user_id),
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (travel_pack_id) REFERENCES travel_packages(pack_id)
 );

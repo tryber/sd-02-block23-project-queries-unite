@@ -1,10 +1,16 @@
 DELIMITER $$
-CREATE PROCEDURE find_travel_packages_by_period (IN dep CHAR(10), IN arr CHAR(10))
+CREATE PROCEDURE find_travel_packages_by_period (IN dep DATETIME, IN arr DATETIME)
 BEGIN
-  SELECT * FROM travel_packages
-  WHERE departure_date >= STR_TO_DATE(dep,'%d/%m/%Y')
-  AND arrival_date <= STR_TO_DATE(arr,'%d/%m/%Y');
+  SELECT
+    pack_id id,
+    pack_name name,
+    price,
+    departure_date,
+    arrival_date
+  FROM travel_packages
+  WHERE DATE(departure_date) >= dep
+  AND DATE(arrival_date) <= arr;
 END $$
 DELIMITER ;
 
-CALL find_travel_packages_by_period('17/07/2022', '25/10/2022');
+CALL find_travel_packages_by_period('2022-07-17', '2022-10-25');
