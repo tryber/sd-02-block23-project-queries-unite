@@ -58,7 +58,7 @@ INSERT INTO travel_packages (travel_package_name)
               ('Cultura Francesa');
               
 INSERT INTO locations (location_city, location_country)
-       VALUES ('Cape Town', 'África do Sul'),
+        VALUES ('Cape Town', 'África do Sul'),
               ('Bali', 'Indonésia'),
               ('Marrakesh', 'Marrocos'),
               ('Paris', 'França'),
@@ -70,7 +70,7 @@ INSERT INTO travel_packages_locations (travel_package_id, location_id_1, locatio
             (3, 4, NULL, NULL),
             (2, 1, 2, NULL),
             (1, 3, 5, 4);
-   
+
 INSERT INTO purchases (user_id, travel_packages_locations_id, departure_date, arrival_date, price)
     VALUES (1, 1, '2022-09-25', '2022-10-12', 12500.99),
             (2, 2, '2022-10-16', '2022-10-26', 9650.99),
