@@ -46,14 +46,14 @@ CREATE TABLE purchases(
 
 
 INSERT INTO users (full_name, current_age, current_job)
-       VALUES ('Rafael Martins', 33, 'Arquiteto'),
+        VALUES ('Rafael Martins', 33, 'Arquiteto'),
               ('Amanda Rocha', 25, ' Desenvolvedora de Software'),
               ('Jonas Cabral', 18, 'Pintor'),
               ('Carol Domingues', 37, 'Contadora'),
               ('Sabrina Ferreira', 45, 'Engenheira de Alimentos');
 
 INSERT INTO travel_packages (travel_package_name)
-       VALUES ('Promoção 3 destinos'),
+        VALUES ('Promoção 3 destinos'),
               ('Vem Pro Verão'),
               ('Cultura Francesa');
               
@@ -66,16 +66,15 @@ INSERT INTO locations (location_city, location_country)
               
 INSERT INTO travel_packages_locations (travel_package_id, location_id_1, location_id_2, location_id_3)
     VALUES (1, 1, 2, 3),
-           (2, 4, 5, NULL),
-           (3, 4, NULL, NULL),
-           (2, 1, 2, NULL),
-           (1, 3, 5, 4);
-           
+            (2, 4, 5, NULL),
+            (3, 4, NULL, NULL),
+            (2, 1, 2, NULL),
+            (1, 3, 5, 4);
+   
 INSERT INTO purchases (user_id, travel_packages_locations_id, departure_date, arrival_date, price)
     VALUES (1, 1, '2022-09-25', '2022-10-12', 12500.99),
-           (2, 2, '2022-10-16', '2022-10-26', 9650.99),
-           (3, 3, '2022-07-12', '2022-07-20', 3900.99),
-           (4, 4, '2022-02-19', '2022-03-26', 7725.99),
-           (5, 3, '2022-07-12', '2022-07-20', 3900.99),
-           (5, 5, '2022-09-13', '2022-10-18', 13500.99);
-        
+            (2, 2, '2022-10-16', '2022-10-26', 9650.99),
+            (3, 3, '2022-07-12', '2022-07-20', 3900.99),
+            (4, 4, '2022-02-19', '2022-03-26', 7725.99),
+            (5, 3, '2022-07-12', '2022-07-20', 3900.99),
+            (5, 5, '2022-09-13', '2022-10-18', 13500.99);
