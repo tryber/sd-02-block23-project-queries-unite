@@ -127,4 +127,3 @@ SELECT BuyPackage(3, 3);
 SELECT BuyPackage(4, 4);
 SELECT BuyPackage(5, 3);
 SELECT BuyPackage(5, 5);
-
