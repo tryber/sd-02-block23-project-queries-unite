@@ -16,4 +16,4 @@ CREATE VIEW travel_package_info AS
             INNER JOIN
         travel_packages tr ON pur.travel_package_id = tr.id
     ORDER BY cost DESC;
-    
+

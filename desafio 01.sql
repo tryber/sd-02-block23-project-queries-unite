@@ -1,4 +1,3 @@
- 
 CREATE DATABASE IF NOT EXISTS queries_unite;
 
 USE queries_unite;
@@ -128,3 +127,4 @@ SELECT BuyPackage(3, 3);
 SELECT BuyPackage(4, 4);
 SELECT BuyPackage(5, 3);
 SELECT BuyPackage(5, 5);
+
