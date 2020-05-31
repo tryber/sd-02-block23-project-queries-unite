@@ -1,137 +1,130 @@
+ 
 CREATE DATABASE IF NOT EXISTS queries_unite;
 
 USE queries_unite;
 
-CREATE TABLE users(
-id INT PRIMARY KEY auto_increment,
-full_name VARCHAR(50) NOT NULL,
-current_age INT NOT NULL,
-current_job VARCHAR(70) NOT NULL
-);
+CREATE TABLE IF NOT EXISTS users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    full_name VARCHAR(100) NOT NULL,
+    current_age INT NOT NULL,
+    current_job VARCHAR(50) NOT NULL
+)ENGINE=InnoDB;
 
-CREATE TABLE packages(
-id INT PRIMARY KEY auto_increment,
-package_name VARCHAR(100) NOT NULL
-);
+CREATE TABLE IF NOT EXISTS travel_packages (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(8 , 2) NOT NULL,
+    departure_date DATE NOT NULL,
+    arrive_date DATE NOT NULL,
+    purchase_count INT DEFAULT 0
+)ENGINE=InnoDB;
 
-CREATE TABLE travel_packages(
-id INT PRIMARY KEY auto_increment,
-quantity_purchases INT default 0,
-packages_id INT NOT NULL,
-departure_date DATE NOT NULL,
-arrival_date DATE NOT NULL,
-price DOUBLE NOT NULL,
-FOREIGN KEY (packages_id) REFERENCES packages(id)
-);
+CREATE TABLE IF NOT EXISTS locations (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    city VARCHAR(50) NOT NULL,
+    country VARCHAR(50) NOT NULL
+)ENGINE=InnoDB;
 
-CREATE TABLE country(
-id INT PRIMARY KEY auto_increment,
-country_name VARCHAR(10) NOT NULL
-);
+CREATE TABLE IF NOT EXISTS travel_packages_locations (
+    travel_package_id INT NOT NULL,
+    location_id INT NOT NULL,
+    PRIMARY KEY(travel_package_id, location_id),
+    CONSTRAINT fk_travel_packages_locations_travel_packages FOREIGN KEY (travel_package_id)
+        REFERENCES travel_packages (id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_travel_packages_locations_locations FOREIGN KEY (location_id)
+        REFERENCES locations (id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+)ENGINE=InnoDB;
 
-CREATE TABLE location(
-id INT PRIMARY KEY auto_increment,
-city VARCHAR(30) NOT NULL,
-country_id INT NOT NULL,
-FOREIGN KEY (country_id) REFERENCES country(id)
-);
+CREATE TABLE IF NOT EXISTS purchases (
+    user_id INT NOT NULL,
+    travel_package_id INT NOT NULL,
+    PRIMARY KEY(user_id, travel_package_id),
+    CONSTRAINT fk_purchases_users FOREIGN KEY (user_id)
+        REFERENCES users (id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_purchases_travel_packages FOREIGN KEY (travel_package_id)
+        REFERENCES travel_packages (id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+)ENGINE=InnoDB;
 
-CREATE TABLE travel_packages_locations(
-PRIMARY KEY (travel_package_id, location_id),
-travel_package_id INT NOT NULL,
-location_id INT NOT NULL,
-FOREIGN KEY (travel_package_id) REFERENCES trave_packages(id),
-FOREIGN KEY (location_id) REFERENCES location(id),
-);
+INSERT INTO users(full_name, current_age, current_job)
+VALUES
+    ('Rafael Martins', 33, 'Arquiteto'),
+    ('Amanda Rocha', 25, 'Desenvolvedora de Software'),
+    ('Jonas Cabral', 18, 'Pintor'),
+    ('Carol Domingues', 37, 'Contadora'),
+    ('Sabrina Ferreira', 45, 'Engenheira de Alimentos');
 
-CREATE TABLE purchases(
-PRIMARY KEY(users_id, travel_packages_id),
-users_id INT NOT NULL,
-travel_packages_id INT NOT NULL,
-FOREIGN KEY (travel_packages_id) REFERENCES travel_packages(id),
-FOREIGN KEY (users_id) REFERENCES users(id)
-);
+INSERT INTO travel_packages(name, price, departure_date, arrive_date)
+VALUES 
+    ('Promoção 3 destinos', 12500.99, '2022-09-25', '2022-10-12'),
+    ('Vem Pro Verão', 9650.99, '2022-10-16', '2022-10-26'),
+    ('Cultura Francesa', 3900.99, '2022-07-12', '2022-07-20'),
+    ('Vem Pro Verão', 7725.99, '2022-02-19', '2022-03-26'),
+    ('Promoção 3 destinos', 13500.99, '2022-09-13', '2022-10-18');
+    
+INSERT INTO locations(city, country)
+VALUES
+    ('Cape Town', 'África do Sul'),
+    ('Bali', 'Indonésia'),
+    ('Marrakesh', 'Marrocos'),
+    ('Paris', 'França'),
+    ('Nova Iorque', 'Estados Unidos');
 
+INSERT INTO 
+    travel_packages_locations(travel_package_id, location_id)
+VALUES
+    (1, 1),
+    (1, 2),
+    (1, 3),
+    (2, 4),
+    (2, 5),
+    (3, 4),
+    (4, 1),
+    (4, 2),
+    (5, 3),
+    (5, 5),
+    (5, 4);
+
+USE queries_unite;
 DELIMITER $$
-CREATE TRIGGER increment_travel_package_purchases
-BEFORE INSERT ON purchases
-FOR EACH ROW
+
+DROP FUNCTION IF EXISTS BuyPackage $$
+CREATE FUNCTION BuyPackage(user_id_param INT, travel_package_id_param INT)
+RETURNS VARCHAR(100) DETERMINISTIC
 BEGIN
-UPDATE travel_packages AS TP
-SET TP.quantity_purchases = TP.quantity_purchases + 1
-WHERE TP.id =  NEW.travel_packages_id;
-END; $$
+    DECLARE user_name VARCHAR(100);
+    DECLARE package_name VARCHAR(100);
+    SELECT u.full_name FROM users u WHERE u.id = user_id_param INTO user_name;
+    SELECT t.name FROM travel_packages t WHERE t.id = travel_package_id_param INTO package_name;
+    INSERT INTO purchases(user_id, travel_package_id) 
+    VALUES(user_id_param, travel_package_id_param);
+    RETURN CONCAT(user_name, ' comprou o pacote ', package_name);
+END $$
+
 DELIMITER ;
 
-INSERT INTO
-  country (country)
-VALUES
-  ('África do Sul'),
-  ('Indonésia'),
-  ('Marrocos'),
-  ('França'),
-  ('Estados Unidos');
+USE queries_unite;
+DELIMITER $$
 
-INSERT INTO
-  locations (city, country_id)
-VALUES
-  ('Cape Town', 1),
-  ('Bali', 2),
-  ('Marrakesh', 3),
-  ('Paris', 4),
-  ('Nova Iorque', 5);
+DROP TRIGGER IF EXISTS increment_travel_package_purchases $$
 
-INSERT INTO
-  users (full_name, current_age, current_job)
-VALUES
-  ('Rafael Martins', 33, 'Arquiteto'),
-  ('Amanda Rocha', 25, 'Desenvolvedora de Software'),
-  ('Jonas Cabral', 18, 'Pintor'),
-  ('Carol Domingues', 37, 'Contadora'),
-  (
-    'Sabrina Ferreira',
-    45,
-    'Engenheira de Alimentos'
-  );
+CREATE TRIGGER increment_travel_package_purchases
+    AFTER INSERT ON purchases
+    FOR EACH ROW
+BEGIN
+    UPDATE travel_packages
+    SET purchase_count = purchase_count + 1
+    WHERE id = NEW.travel_package_id;
+END $$
 
-INSERT INTO
-  package_name (package_name)
-VALUES
-  ('Promoção 3 destinos'),
-  ('Vem Pro Verão'),
-  ('Cultura Francesa');
+DELIMITER ;
 
-INSERT INTO
-  travel_packages (package_name_id, date_going, date_return, price, purchase_count)
-VALUES
-  (1, '2022/09/25', "2022/10/12", 12500.99, 1),
-  (2, "2022/10/16", "2022/10/26", 9650.99, 1),
-  (3, "2022/07/12", "2022/07/20", 3900.99, 2),
-  (2, "2022/02/19", "2022/03/26", 7725.99, 1),
-  (1, "2022/09/13", "2022/10/18", 13500.99, 1);
-
-INSERT INTO
-  travel_packages_locations (travel_package_id, locations_id)
-VALUES
-  (1, 1),
-  (1, 2),
-  (1, 3),
-  (2, 4),
-  (2, 5),
-  (3, 4),
-  (4, 1),
-  (4, 2),
-  (5, 3),
-  (5, 5),
-  (5, 4);
-
-INSERT INTO
-  purchases (users_id, travel_packages_id)
-VALUES
-  (1, 1),
-  (2, 2),
-  (3, 3),
-  (4, 4),
-  (5, 3),
-  (5, 5);
-  
+SELECT BuyPackage(1, 1);
+SELECT BuyPackage(2, 2);
+SELECT BuyPackage(3, 3);
+SELECT BuyPackage(4, 4);
+SELECT BuyPackage(5, 3);
+SELECT BuyPackage(5, 5);
