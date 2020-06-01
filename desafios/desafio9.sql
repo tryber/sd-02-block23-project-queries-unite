@@ -22,4 +22,6 @@ WHERE
 END $$
 DELIMITER ;
 
+-- Dessa vez o DELIMITER tá certo hahahahah
+
 CALL find_travel_packages_by_period('2022-07-17', '2022-10-25');

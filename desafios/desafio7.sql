@@ -7,7 +7,7 @@
  de forma decrescente.Caso haja mais de uma localização com a mesma quantidade de visitas,
  o critério de desempate será a ordenação pelo id da localização,
  de forma crescente. */
- 
+
 CREATE VIEW top_3_locations AS
 SELECT
   tpl.location_id,
