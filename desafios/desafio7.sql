@@ -17,10 +17,12 @@ SELECT
 FROM
   queries_unite.travel_packages_locations AS tpl
   INNER JOIN queries_unite.locations AS loc ON tpl.location_id = loc.id
-  INNER JOIN queries_unite.purchase AS pur ON tpl.package_id = pur.travel_package
+  INNER JOIN queries_unite.purchases AS pur ON tpl.package_id = pur.travel_package
 GROUP BY
   loc.id
 ORDER BY
   travel_amount DESC
 LIMIT
   3;
+
+SELECT * FROM top_3_locations;

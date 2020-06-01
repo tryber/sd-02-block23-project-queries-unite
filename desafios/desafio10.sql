@@ -13,7 +13,7 @@ DECLARE amount DECIMAL(10, 2);
 SELECT
   AVG(tp.total_coast)
 FROM
-  purchase AS pur
+  purchases AS pur
   INNER JOIN users AS us ON pur.user_id = us.id
   INNER JOIN travel_packages AS tp ON pur.travel_package = tp.id
 WHERE

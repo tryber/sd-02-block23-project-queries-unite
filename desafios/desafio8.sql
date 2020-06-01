@@ -23,7 +23,9 @@ FROM
       COUNT(pur.travel_package) * tp.total_coast AS revenue_table
     FROM
       queries_unite.travel_packages AS tp
-      INNER JOIN queries_unite.purchase AS pur ON tp.id = pur.travel_package
+      INNER JOIN queries_unite.purchases AS pur ON tp.id = pur.travel_package
     GROUP BY
       tp.id
   ) AS from_table;
+
+SELECT * FROM revenue_report;

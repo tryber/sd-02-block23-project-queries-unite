@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS travel_packages(
   total_coast DECIMAL(10, 2) NOT NULL
 ) engine = InnoDB;
 
-CREATE TABLE IF NOT EXISTS purchase(
+CREATE TABLE IF NOT EXISTS purchases(
   user_id INT NOT NULL,
   travel_package INT NOT NULL,
   PRIMARY KEY(travel_package, user_id),
@@ -44,6 +44,12 @@ CREATE TABLE IF NOT EXISTS travel_packages_locations(
   FOREIGN KEY(package_id) references travel_packages(id),
   FOREIGN KEY(location_id) references locations(id)
 ) engine = InnoDB;
+
+CREATE TRIGGER increment_travel_package_purchases AFTER INSERT
+ON purchases
+FOR EACH ROW
+UPDATE travel_packages SET purchase_count = purchase_count + 1
+WHERE id = NEW.travel_package.id;
 
 INSERT INTO
   jobs (job_name)
@@ -107,7 +113,7 @@ VALUES
   );
 
 INSERT INTO
-  purchase (user_id, travel_package)
+  purchases (user_id, travel_package)
 VALUES
   (1, 1),
   (2, 2),

@@ -16,9 +16,11 @@ SELECT
   us.full_name AS user_name,
   pa.total_coast AS cost
 FROM
-  queries_unite.purchase AS pur
+  queries_unite.purchases AS pur
   INNER JOIN queries_unite.travel_packages as tp ON pur.travel_package = tp.id
   INNER JOIN queries_unite.users AS us ON pur.user_id = us.id
   INNER JOIN queries_unite.travel_packages as pa ON pur.travel_package = pa.id
 ORDER BY
   cost DESC;
+
+SELECT * FROM travel_package_info;
