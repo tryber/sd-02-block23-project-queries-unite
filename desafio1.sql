@@ -36,7 +36,8 @@ id int primary key auto_increment,
 travel_packages_id int not null,
 users_id int not null,
 foreign key (users_id) references users(id),
-foreign key (travel_packages_id) references travel_packages(id)
+foreign key (travel_packages_id) references travel_packages(id),
+constraint UC_purchases unique (users_id, travel_packages_id)
 );
 
 insert into users (full_name, current_age, current_job) value
