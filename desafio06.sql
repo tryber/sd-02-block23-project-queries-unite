@@ -2,7 +2,7 @@ USE queries_unite;
 
 CREATE VIEW amount_spent_by_user AS
 SELECT
-	u.id,
+u.id,
     u.full_name AS fullName,
   SUM(tp.price) AS amount
 FROM

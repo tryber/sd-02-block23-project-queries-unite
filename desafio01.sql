@@ -10,18 +10,18 @@ CREATE TABLE IF NOT EXISTS users(
 );
 
 CREATE TABLE IF NOT EXISTS package_name(
-	id INT PRIMARY KEY AUTO_INCREMENT,
+id INT PRIMARY KEY AUTO_INCREMENT,
     package_name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS travel_packages(
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	purchase_count INT DEFAULT 0,
-	package_name_id INT NOT NULL, 
-	date_departure DATE NOT NULL,
-	date_return DATE NOT NULL,
-	price DOUBLE NOT NULL,
-	FOREIGN KEY (package_name_id) REFERENCES package_name(id)
+id INT PRIMARY KEY AUTO_INCREMENT,
+purchase_count INT DEFAULT 0,
+package_name_id INT NOT NULL, 
+date_departure DATE NOT NULL,
+date_return DATE NOT NULL,
+price DOUBLE NOT NULL,
+FOREIGN KEY (package_name_id) REFERENCES package_name(id)
 );
 
 CREATE TABLE IF NOT EXISTS country(
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS country(
 );
 
 CREATE TABLE IF NOT EXISTS locations(
-	id INT PRIMARY KEY AUTO_INCREMENT,
+id INT PRIMARY KEY AUTO_INCREMENT,
     city VARCHAR(40) NOT NULL,
     country_id INT NOT NULL,
     FOREIGN KEY (country_id) REFERENCES country(id)
@@ -48,10 +48,8 @@ CREATE TABLE IF NOT EXISTS purchases (
     PRIMARY KEY (users_id , travel_packages_id),
     users_id INT NOT NULL,
     travel_packages_id INT NOT NULL,
-    FOREIGN KEY (travel_packages_id)
-	REFERENCES travel_packages (id),
-    FOREIGN KEY (users_id)
-	REFERENCES users (id)
+    FOREIGN KEY (travel_packages_id) REFERENCES travel_packages (id),
+    FOREIGN KEY (users_id) REFERENCES users (id)
 );
 
 INSERT INTO

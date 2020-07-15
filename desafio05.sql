@@ -8,7 +8,7 @@ SELECT
     u.full_name AS user_name,
     tp.price AS cost
 FROM
-	travel_packages AS tp
+travel_packages AS tp
     INNER JOIN purchases as pur ON pur.travel_packages_id = tp.id
   INNER JOIN users AS u ON u.id = pur.users_id
   INNER JOIN package_name AS pn ON pn.id = tp.package_name_id
