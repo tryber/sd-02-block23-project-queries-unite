@@ -25,7 +25,7 @@ FOREIGN KEY (package_name_id) REFERENCES package_name(id)
 );
 
 CREATE TABLE IF NOT EXISTS country(
-	id INT PRIMARY KEY AUTO_INCREMENT,
+id INT PRIMARY KEY AUTO_INCREMENT,
     country VARCHAR(70) NOT NULL
 );
 

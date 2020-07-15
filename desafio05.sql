@@ -2,7 +2,7 @@ USE queries_unite;
 
 CREATE VIEW travel_package_info AS
 SELECT
-	tp.id AS travel_package_id,
+tp.id AS travel_package_id,
     pn.package_name AS travel_package_name, 
     u.id AS user_id,
     u.full_name AS user_name,
